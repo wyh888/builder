@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const projectRoot = process.cwd()
 
@@ -55,10 +56,20 @@ module.exports = {
         : 'static/js/[name].[hash].js',
     publicPath: '/',
   },
+  resolve: {
+    alias: {
+      '@': path.join(projectRoot, '/src'),
+      'vue$': 'vue/dist/vue.runtime.esm.js',
+    },
+  },
   module: {
     rules: [
       {
-        test: /.js$/,
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -118,6 +129,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: 'static/css/[name]_[contenthash:8].css',
     }),
