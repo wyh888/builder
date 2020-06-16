@@ -37,7 +37,7 @@ const setMPA = () => {
       })
     )
   })
-  
+
   return {
     entry,
     htmlWebpackPlugins,
@@ -59,7 +59,7 @@ module.exports = {
   resolve: {
     alias: {
       '@': path.join(projectRoot, '/src'),
-      'vue$': 'vue/dist/vue.runtime.esm.js',
+      vue$: 'vue/dist/vue.runtime.esm.js',
     },
   },
   module: {
@@ -71,9 +71,10 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: [
+          'babel-loader',
+          'eslint-loader',
+        ],
       },
       {
         test: /\.css$/i,
@@ -146,5 +147,17 @@ module.exports = {
       ],
     }),
   ].concat(htmlWebpackPlugins),
+  optimization: {
+    splitChunks: {
+      minSize: 0,
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          chunks: 'all',
+          minChunks: 2,
+        },
+      },
+    },
+  },
   stats: 'errors-only',
 }

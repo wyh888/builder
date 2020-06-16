@@ -5,11 +5,16 @@
 </template>
 
 <script>
+import { add } from '@/utils/func'
+
 export default {
   data() {
     return {
       str: 'vue page',
     }
+  },
+  mounted() {
+    this.str += add(1, 2)
   }
 }
 </script>

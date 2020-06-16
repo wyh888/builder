@@ -1,11 +1,11 @@
 export function helloworld(name = 'hhh') {
   class Bar {
-    doStuff() {
-      console.log('stuff')
+    static doStuff() {
+      document.write('stuff')
     }
   }
 
-  let b = new Bar()
+  const b = new Bar()
   b.doStuff() // "stuff"
 
   return `${name}hello world`

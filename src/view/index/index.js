@@ -1,5 +1,6 @@
-import { helloworld } from "./helloworld"
+import { add } from '@/utils/func'
+import { helloworld } from './helloworld'
 
 const a = 'kjkjk'
 
-document.write(helloworld(a))
+document.write(helloworld(a + add(1, 2)))
